@@ -1,2 +1,2 @@
-# alphabits-cse112
+# kissmyapp-cse112
 Repo for CSE 112 Project
