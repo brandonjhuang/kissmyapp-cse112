@@ -1,17 +1,17 @@
 import pytest
 import unittest
 
+# Delete these function placeholders
 def FormatContactName(first, last):
-    return first + ' ' + last
+    return ''
 
 def IsValidContactName(first, last):
     return True
 
 class ContactTest(unittest.TestCase):
 
-    def test_contact_format(self):
-
     #--------------------------------Standard Case-----------------------------
+    def test_contact_format_standard(self):
         self.assertEqual(FormatContactName('Alger', 'Vuong'), 'Alger Vuong')
         self.assertEqual(FormatContactName('Chiraag', 'Prafullchandra'), 
             'Chiraag Prafullchandra')
@@ -21,33 +21,22 @@ class ContactTest(unittest.TestCase):
 
     #--------------------------------Special Cases-----------------------------
 
-        # First name has > 12 characters (12 char limit)
-        self.assertEqual(FormatContactName('HiMynameIsAlgerithm', 
-            'Vuong'), 'HiMynameIsAl Vuong')
-
-        # Last name has > 12 characters
-        self.assertEqual(FormatContactName('KissMyApp', 'IsTheBestTeam'),
-            'KissMyApp IsTheBestTea')
-
-
-        # First and Last Name have > 12 characters; first name is alphanumeric
-        self.assertEqual(FormatContactName('HelloWorld2017', 
-            'HowIsTheYearGoing'), 'HelloWorld20 HowIsTheYear')
-
-        # First name has invalid character
+    # First name has invalid character (will filter)
+    def test_contact_invalid_first(self):
         self.assertEqual(FormatContactName('-^-^-', '.CSE112.'), '--- CSE112')
 
-        # Last name has invalid character
+    # Last name has invalid character (will filter)
+    def test_contact_invalid_last(self):
         self.assertEqual(FormatContactName('Hello', '#Kiss&My&App#'),
             'Hello KissMyApp')
 
-
-        # First and Last name has invalid character
+    # First and Last name has invalid character (will filter)
+    def test_contact_invalid_first_last(self):
         self.assertEqual(FormatContactName('abc|--@-@--|cba', 'l*_*l'),
             'abc-----cba ll')
 
-    def test_valid_contact(self):
-    #--------------------------------Success-----------------------------------
+    #--------------------------------Standard----------------------------------
+    def test_valid_contact_standard(self):
         # Standard first and last name
         self.assertTrue(IsValidContactName('Brandon', 'Chin'))
 
@@ -61,30 +50,62 @@ class ContactTest(unittest.TestCase):
         self.assertTrue(IsValidContactName('.-.', '-.-'))
 
 
-    #---------------------------------Failure----------------------------------
-        # First name contains invalid characters
+    #---------------------------------Invalid----------------------------------
+    # First name contains invalid characters
+    def test_valid_contact_invalid_first_1(self):
         self.assertFalse(IsValidContactName('*William*', '-Quan-'))
 
-        # First name contains invalid characters
+    # First name contains invalid characters
+    def test_valid_contact_invalid_first_2(self):
         self.assertFalse(IsValidContactName('$$$Brandon$$$', 'Huang'))
 
-        # Last name contains invalid characters
+    # First name contains invalid special characters, last name contains 
+    # valid special characters
+    def test_valid_contact_invalid_first_3(self):
+        self.assertFalse(IsValidContactName('<Hello>', '-World-'))
+
+    # Last name contains invalid characters
+    def test_valid_contact_invalid_last_1(self):
         self.assertFalse(IsValidContactName('Bynhan', '^Pham^%30'))
 
-        # First name contains alphanumeric characters 
-        # Last name contains invalid characters (whitespace)
+    # Last name contains invalid characters (whitespace)
+    def test_valid_contact_invalid_last_2(self):
         self.assertFalse(IsValidContactName('CSE112', 'is dope'))
 
-        # First name contains valid special characters, last name contains 
-        # invalid special characters
+    # First name contains valid special characters, last name contains 
+    # invalid special characters
+    def test_valid_contact_invalid_last_3(self):
         self.assertFalse(IsValidContactName('...', '$=Power'))
 
-        # First name contains invalid special characters, last name contains 
-        # valid special characters
-        self.assertFalse(IsValidContactName('<Hello>', '-World-'))
         
-        # First and last name contain invalid characters
+    # First and last name contain invalid characters
+    def test_valid_contact_invalid_first_last_1(self):
         self.assertFalse(IsValidContactName('^.^', ':D'))
 
-        # First and last name contain invalid characters
+    # First and last name contain invalid characters
+    def test_valid_contact_invalid_first_last_2(self):
         self.assertFalse(IsValidContactName('! !', '$=Power')) 
+
+    # First name has > 12 characters (12 char limit)
+    def test_valid_contact_invalid_length_first(self):
+        self.assertFalse(IsValidContactName('HiMynameIsAlgerithm', 'Vuong'))
+
+    # Last name has > 12 characters
+    def test_valid_contact_invalid_max_length_last(self):
+        self.assertFalse(IsValidContactName('KissMyApp', 'IsTheBestTeam'))
+
+    # First and Last Name have > 12 characters
+    def test_valid_contact_invalid_max_length_first_last(self):
+        self.assertEqual(IsValidContactName('HelloWorld2017', 'HowIsTheYearGo'))
+
+    # First name < 1 character
+    def test_valid_contact_invalid_min_length_first(self):
+        self.assertFalse(IsValidContactName('', 'abc'))
+
+    # Last name < 1 character
+    def test_valid_contact_invalid_min_length_last(self):
+        self.assertFalse(IsValidContactName('123abc', ''))
+
+    # Last and First name < 1 character
+    def test_valid_contact_invalid_min_length_first_last(self):
+        self.assertFalse(IsValidContactName('', ''))
