@@ -10,6 +10,8 @@ def IsValidContactName(first, last):
 class ContactTest(unittest.TestCase):
 
     def test_contact_format(self):
+
+    #--------------------------------Standard Case-----------------------------
         self.assertEqual(FormatContactName('Alger', 'Vuong'), 'Alger Vuong')
         self.assertEqual(FormatContactName('Chiraag', 'Prafullchandra'), 
             'Chiraag Prafullchandra')
@@ -17,6 +19,32 @@ class ContactTest(unittest.TestCase):
         self.assertEqual(FormatContactName('Christopher', 'Espitia'), 
             'Christopher Espitia')
 
+    #--------------------------------Special Cases-----------------------------
+
+        # First name has > 12 characters (12 char limit)
+        self.assertEqual(FormatContactName('HiMynameIsAlgerithm', 
+            'Vuong'), 'HiMynameIsAl Vuong')
+
+        # Last name has > 12 characters
+        self.assertEqual(FormatContactName('KissMyApp', 'IsTheBestTeam'),
+            'KissMyApp IsTheBestTea')
+
+
+        # First and Last Name have > 12 characters; first name is alphanumeric
+        self.assertEqual(FormatContactName('HelloWorld2017', 
+            'HowIsTheYearGoing'), 'HelloWorld20 HowIsTheYear')
+
+        # First name has invalid character
+        self.assertEqual(FormatContactName('-^-^-', '.CSE112.'), '--- CSE112')
+
+        # Last name has invalid character
+        self.assertEqual(FormatContactName('Hello', '#Kiss&My&App#'),
+            'Hello KissMyApp')
+
+
+        # First and Last name has invalid character
+        self.assertEqual(FormatContactName('abc|--@-@--|cba', 'l*_*l'),
+            'abc-----cba ll')
 
     def test_valid_contact(self):
     #--------------------------------Success-----------------------------------
@@ -33,7 +61,7 @@ class ContactTest(unittest.TestCase):
         self.assertTrue(IsValidContactName('.-.', '-.-'))
 
 
-    #---------------------------------Failure-----------------------------------
+    #---------------------------------Failure----------------------------------
         # First name contains invalid characters
         self.assertFalse(IsValidContactName('*William*', '-Quan-'))
 
