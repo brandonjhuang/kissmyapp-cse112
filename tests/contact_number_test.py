@@ -96,7 +96,7 @@ class ContactTest(unittest.TestCase):
 
     # First and Last Name have > 12 characters
     def test_valid_contact_invalid_max_length_first_last(self):
-        self.assertEqual(IsValidContactName('HelloWorld2017', 'HowIsTheYearGo'))
+        self.assertFalse(IsValidContactName('HelloWorld2017', 'HowIsTheYearGo'))
 
     # First name < 1 character
     def test_valid_contact_invalid_min_length_first(self):
