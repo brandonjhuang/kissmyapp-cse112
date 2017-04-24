@@ -23,7 +23,7 @@ class ContactTest(unittest.TestCase):
 
     # First name has invalid character (will filter)
     def test_contact_invalid_first(self):
-        self.assertEqual(FormatContactName('-^-^-', '.CSE112.'), '--- CSE112')
+        self.assertEqual(FormatContactName('-^-^-', '.CSE112.'), '--- .CSE112.')
 
     # Last name has invalid character (will filter)
     def test_contact_invalid_last(self):
