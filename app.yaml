@@ -6,5 +6,5 @@ version: demo
 application: kissmyapp-cse112
 
 handlers:
-- url: /
+- url: /.*
   script: application.py
