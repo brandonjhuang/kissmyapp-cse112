@@ -2,6 +2,10 @@ runtime: python27
 api_version: 1
 threadsafe: true
 
+# Required by Codeship
+version: demo
+application: kissmyapp-cse112
+
 handlers:
-- url: /
-  script: application.py
+- url: /.*
+  script: main.app
