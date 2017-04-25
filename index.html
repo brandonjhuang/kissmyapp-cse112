@@ -4,7 +4,7 @@
     <title>CSE112: Name Verification</title>
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
     <script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
-    <script src='js/main.js'></script>
+    <!--<script src='js/main.js'></script>-->
     <script type="text/javascript">
       //want to display this result somewhere under/next to forms?
       var someVar= '{{ templateData }}';
@@ -40,10 +40,16 @@
 
     function myFunction() {
       //add functionality hereee
-      var pythonscript = true;
-      if(pythonscript == true){
+      var isValidContact = true;
+      var firstname = document.getElementsByName("firstname")[0].value;
+      var lastname = document.getElementsByName("lastname")[0].value;
+      if(isValidContact == true){
         //PRINT VALUE HERE replace YOU CLICKED ME!
-        document.getElementById("validity").innerHTML ="YOU CLICKED ME!";
+        //instead of these print statements can use FormatContactName instead
+        document.getElementById("validity").innerHTML = firstname + " " + lastname + " is valid";
+      }
+      else{
+        document.getElementById("validity").innerHTML = firstname + " " + lastname + " is not valid";
       }
     }
 </script>
