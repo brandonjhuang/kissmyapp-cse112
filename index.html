@@ -39,18 +39,13 @@
     document.getElementById("but").onclick = function() {myFunction()};
 
     function myFunction() {
-      //add functionality hereee
-      var isValidContact = true;
-      var firstname = document.getElementsByName("firstname")[0].value;
-      var lastname = document.getElementsByName("lastname")[0].value;
-      if(isValidContact == true){
-        //PRINT VALUE HERE replace YOU CLICKED ME!
-        //instead of these print statements can use FormatContactName instead
-        document.getElementById("validity").innerHTML = firstname + " " + lastname + " is valid";
-      }
-      else{
-        document.getElementById("validity").innerHTML = firstname + " " + lastname + " is not valid";
-      }
+        var firstname = document.getElementsByName("firstname")[0].value;
+        var lastname = document.getElementsByName("lastname")[0].value;
+
+        $.post("/FormatContactNameRoute", {first: firstname, last:lastname}, function(result) {
+            document.getElementById("validity").innerHTML = result;
+        });
+
     }
 </script>
 </html>
